@@ -1,0 +1,28 @@
+.subtotal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    height: 100%;
+    padding: 20px;
+    background-color: $bg-color;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+
+    p {
+        margin: 0;
+    }
+
+    &__gift {
+        display: flex;
+        align-items: center;
+
+        & > input {
+            margin-right: 5px;
+        }
+    }
+
+    &__btn {
+        @include button;
+    }
+}
