@@ -37,7 +37,7 @@ const Header = () => {
                         className='header__options'
                     >
                         <span>Hello</span>
-                        <span>Sign {user ? 'In' : 'Out'}</span>
+                        <span>Sign {user ? 'Out' : 'In'}</span>
                     </div>
                 </Link>
                 <div className='header__options'>
