@@ -3,7 +3,7 @@ export const initialState = { basket: [], user: null };
 export const getBasketTotal = (basket) =>
     basket?.reduce((amount, item) => item.price + amount, 0);
 
-const reducer = (state, { type, item, id }) => {
+const reducer = (state, { type, item, id, user }) => {
     switch (type) {
         case 'ADD_TO_BASKET':
             return { ...state, basket: [...state.basket, item] };
@@ -23,6 +23,9 @@ const reducer = (state, { type, item, id }) => {
             }
 
             return { ...state, basket: newBasket };
+
+        case 'SET_USER':
+            return { ...state, user };
 
         default:
             return state;
