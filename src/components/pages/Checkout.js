@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useStateValue } from '../store/StateContext';
+
+import CheckoutProduct from '../CheckoutProduct';
 import Subtotal from '../Subtotal';
 
 const Checkout = () => {
+    const [{ basket }] = useStateValue();
+
     return (
         <div className='checkout'>
             <div className='checkout__left'>
@@ -16,10 +21,12 @@ const Checkout = () => {
                 </Link>
 
                 <h2 className='checkout__title'>Your shopping basket</h2>
+                {basket.map((item, key) => (
+                    <CheckoutProduct key={key} {...item} />
+                ))}
             </div>
 
             <div className='checkout__right'>
-                <h3>The subtotal will go here</h3>
                 <Subtotal />
             </div>
         </div>
