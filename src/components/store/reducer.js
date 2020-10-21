@@ -24,6 +24,9 @@ const reducer = (state, { type, item, id, user }) => {
 
             return { ...state, basket: newBasket };
 
+        case 'EMPTY_BASKET':
+            return { ...state, basket: [] };
+
         case 'SET_USER':
             return { ...state, user };
 
