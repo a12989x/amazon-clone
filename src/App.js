@@ -11,6 +11,7 @@ import Home from './components/pages/Home';
 import Checkout from './components/pages/Checkout';
 import SignIn from './components/pages/SignIn';
 import Payment from './components/pages/Payment';
+import Orders from './components/pages/Orders';
 
 const promise = loadStripe(
     'pk_test_51HeUaFHxPghHyDls1HUYzze4UDJfSlqoggKfhpw2oRVzoMmQtaZI1qU8tkgy44j6GvRQjEDmn4X0w11MLVfMKcSl00fmisJHtg'
@@ -45,6 +46,7 @@ function App() {
                             <Payment />
                         </Elements>
                     </Route>
+                    <Route exact path='/orders' component={Orders} />
                 </Switch>
             </BrowserRouter>
         </div>
