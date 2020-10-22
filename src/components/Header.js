@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import { auth } from 'firebase';
 
+import { auth } from '../firebase';
 import { useStateValue } from './store/StateContext';
 
 const Header = () => {
@@ -31,7 +31,7 @@ const Header = () => {
             </div>
 
             <nav className='header__nav'>
-                <Link to={!user && '/sign-in'}>
+                <Link to={'/sign-in'}>
                     <div
                         onClick={handleAuthentication}
                         className='header__options'
