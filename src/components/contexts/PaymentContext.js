@@ -1,17 +1,13 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-// import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-import { AuthContext } from './AuthContext';
 import { ProductsContext } from './ProductsContext';
 
-import { db } from '../../firebase';
 import axios from '../../axios';
 
 export const PaymentContext = createContext();
 
 const PaymentContextProvider = ({ children }) => {
-    const { user } = useContext(AuthContext);
-    const { basket, setBasket, getBasketTotal } = useContext(ProductsContext);
+    const { basket, getBasketTotal } = useContext(ProductsContext);
 
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(true);
