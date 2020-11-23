@@ -1,0 +1,25 @@
+.footer {
+    background-color: $blue-color;
+    margin-top: 50px;
+    padding: 50px;
+    color: $white-color;
+    display: grid;
+    grid-template: 1fr 1fr / repeat(auto-fit, minmax(300px, 1fr));
+    min-height: 70vh;
+
+    &__section {
+        border-bottom: 1px solid lighten($color: $blue-color, $amount: 5);
+        padding-bottom: 25px;
+        text-align: center;
+
+        li {
+            margin-bottom: 8px;
+        }
+    }
+
+    &__img {
+        grid-column: 1 / -1;
+        max-width: 200px;
+        margin: 25px auto 0;
+    }
+}
