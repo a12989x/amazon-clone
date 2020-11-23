@@ -1,5 +1,7 @@
 .checkout {
-    display: flex;
+    display: grid;
+    grid-template: 1fr / 5fr 1fr;
+    column-gap: 25px;
     padding: 20px;
     background-color: $white-color;
     height: max-content;
@@ -9,9 +11,25 @@
         margin-bottom: 10px;
     }
 
+    h3 {
+        text-transform: capitalize;
+    }
+
     &__title {
         margin-right: 10px;
         padding: 10px;
         border-bottom: 1px solid lightgray;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .checkout {
+        grid-template-columns: 1fr;
+
+        .product {
+            &__btn {
+                max-height: 50px;
+            }
+        }
     }
 }
