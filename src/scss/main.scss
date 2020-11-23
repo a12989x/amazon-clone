@@ -15,10 +15,12 @@
 @import './components/header';
 @import './components/product';
 @import './components/subtotal';
-@import './components/checkout-product';
+@import './components/order';
+@import './components/footer';
 
 /* pages */
 @import './pages/sign-in';
 @import './pages/home';
 @import './pages/checkout';
 @import './pages/payment';
+@import './pages/orders';
