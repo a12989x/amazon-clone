@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useStateValue } from '../store/StateContext';
+import { AuthContext } from '../contexts/AuthContext';
+import { ProductsContext } from '../contexts/ProductsContext';
 
-import CheckoutProduct from '../CheckoutProduct';
 import Subtotal from '../Subtotal';
+import Product from '../Product';
 
 const Checkout = () => {
-    const [{ basket, user }] = useStateValue();
+    const { user, username } = useContext(AuthContext);
+    const { basket } = useContext(ProductsContext);
 
     return (
         <div className='checkout'>
@@ -20,10 +22,10 @@ const Checkout = () => {
                     />
                 </Link>
 
-                <h3>Hello, {user?.email}</h3>
+                <h3>Hello, {username}</h3>
                 <h2 className='checkout__title'>Your shopping basket</h2>
                 {basket.map((item, key) => (
-                    <CheckoutProduct key={key} {...item} />
+                    <Product key={key} page='checkout' {...item} />
                 ))}
             </div>
 
