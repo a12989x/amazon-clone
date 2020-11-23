@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 import { auth } from '../firebase';
-import { useStateValue } from './store/StateContext';
+import { AuthContext } from './contexts/AuthContext';
+import { ProductsContext } from './contexts/ProductsContext';
 
 const Header = () => {
-    const [{ basket, user }, dispatch] = useStateValue();
+    const { user, username } = useContext(AuthContext);
+    const { basket } = useContext(ProductsContext);
 
     const handleAuthentication = () => {
-        if (user) {
-            auth.signOut();
-        }
+        if (user) auth.signOut();
     };
 
     return (
@@ -36,19 +36,19 @@ const Header = () => {
                         onClick={handleAuthentication}
                         className='header__options'
                     >
-                        <span>Hello</span>
+                        <span>Hello {username}</span>
                         <span>Sign {user ? 'Out' : 'In'}</span>
                     </div>
                 </Link>
-                <div className='header__options'>
-                    <span>Returns</span>
-                    <span>&#38; Orders</span>
-                </div>
-                <div className='header__options'>
-                    <span>Your</span>
-                    <span>Prime</span>
-                </div>
-                <Link to='/checkout'>
+                {user && (
+                    <Link to='/orders'>
+                        <div className='header__options'>
+                            <span>Returns</span>
+                            <span>&#38; Orders</span>
+                        </div>
+                    </Link>
+                )}
+                <Link to={user ? '/checkout' : 'sign-in'}>
                     <div className='header__optionBasket'>
                         <ShoppingBasketIcon />
                         <span className='header__basketCount'>
