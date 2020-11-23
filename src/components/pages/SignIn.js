@@ -1,31 +1,10 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
-import { auth } from '../../firebase';
+import { AuthContext } from '../contexts/AuthContext';
 
 const SignIn = () => {
-    const history = useHistory();
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const signIn = (e) => {
-        e.preventDefault();
-
-        auth.signInWithEmailAndPassword(email, password)
-            .then((auth) => history.push('/'))
-            .catch((err) => alert(err.message));
-    };
-
-    const register = (e) => {
-        e.preventDefault();
-
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((auth) => {
-                if (auth) history.push('/');
-            })
-            .catch((err) => alert(err.message));
-    };
+    const { values, handleChange, signIn, register } = useContext(AuthContext);
 
     return (
         <div className='signIn'>
@@ -44,15 +23,21 @@ const SignIn = () => {
                     <h5>Email</h5>
                     <input
                         type='text'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        required={true}
+                        id='email'
+                        name='email'
+                        value={values.email}
+                        onChange={handleChange}
                     />
 
                     <h5>Password</h5>
                     <input
                         type='password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        required={true}
+                        id='password'
+                        name='password'
+                        value={values.password}
+                        onChange={handleChange}
                     />
 
                     <button
