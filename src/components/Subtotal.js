@@ -1,13 +1,11 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
 import CurrencyFormat from 'react-currency-format';
 
-import { useStateValue } from './store/StateContext';
-import { getBasketTotal } from './store/reducer';
+import { ProductsContext } from './contexts/ProductsContext';
+import History from './History';
 
 const Subtotal = () => {
-    const history = useHistory();
-    const [{ basket }] = useStateValue();
+    const { basket, getBasketTotal } = useContext(ProductsContext);
 
     return (
         <div className='subtotal'>
@@ -31,7 +29,7 @@ const Subtotal = () => {
                 prefix={'$'}
             />
             <button
-                onClick={(e) => history.push('/payment')}
+                onClick={(e) => History.push('/payment')}
                 className='subtotal__btn'
             >
                 Proceed to checkout
