@@ -1,47 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import CurrencyFormat from 'react-currency-format';
 
+import History from '../History';
 import { db } from '../../firebase';
-import axios from '../../axios';
-import { useStateValue } from '../store/StateContext';
-import { getBasketTotal } from '../store/reducer';
+import { AuthContext } from '../contexts/AuthContext';
+import { ProductsContext } from '../contexts/ProductsContext';
+import { PaymentContext } from '../contexts/PaymentContext';
 
-import CheckoutProduct from '../CheckoutProduct';
+import Product from '../Product';
 
 const Payment = () => {
-    const [{ basket, user }, dispatch] = useStateValue();
-
-    const history = useHistory();
-
-    const [error, setError] = useState(null);
-    const [disabled, setDisabled] = useState(true);
-    const [succeeded, setSucceeded] = useState(false);
-    const [processing, setProcessing] = useState('');
-    const [clientSecret, setClientSecret] = useState('');
+    const { user, username } = useContext(AuthContext);
+    const { basket, getBasketTotal, setBasket } = useContext(ProductsContext);
+    const {
+        error,
+        setError,
+        disabled,
+        succeeded,
+        setSucceeded,
+        processing,
+        setProcessing,
+        clientSecret,
+        handleChange,
+    } = useContext(PaymentContext);
 
     const stripe = useStripe();
     const elements = useElements();
 
-    useEffect(() => {
-        const getClientSecret = async () => {
-            const response = await axios({
-                method: 'post',
-                url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
-            });
-            setClientSecret(response.data.clientSecret);
-        };
-
-        getClientSecret();
-    }, [basket]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         setProcessing(true);
 
-        const payload = await stripe
+        await stripe
             .confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement),
@@ -55,22 +47,17 @@ const Payment = () => {
                     .set({
                         basket,
                         amount: paymentIntent.amount,
-                        crated: paymentIntent.created,
+                        created: paymentIntent.created,
                     });
 
                 setSucceeded(true);
                 setError(null);
                 setProcessing(false);
 
-                dispatch({ type: 'EMPTY_BASKET' });
+                setBasket([]);
 
-                history.replace('/orders');
+                History.replace('/orders');
             });
-    };
-
-    const handleChange = (e) => {
-        setDisabled(e.empty);
-        setError(e.error ? e.error.message : '');
     };
 
     return (
@@ -81,7 +68,7 @@ const Payment = () => {
             <div className='payment__section'>
                 <h3 className='payment__title'>Delivery Address</h3>
                 <div className='payment__address'>
-                    <p>{user?.email}</p>
+                    <p>{username}</p>
                     <p>123 React Lane</p>
                     <p>Los Angeles, CA</p>
                 </div>
@@ -91,7 +78,7 @@ const Payment = () => {
                 <h3 className='payment__title'>Review items and delivery</h3>
                 <div className='payment__items'>
                     {basket.map((item, key) => (
-                        <CheckoutProduct key={key} {...item} />
+                        <Product key={key} {...item} />
                     ))}
                 </div>
             </div>
