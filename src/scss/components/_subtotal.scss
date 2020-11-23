@@ -4,6 +4,7 @@
     justify-content: space-between;
     width: 300px;
     height: 100%;
+    max-height: 215px;
     padding: 20px;
     background-color: $bg-color;
     border: 1px solid #dddddd;
@@ -24,5 +25,16 @@
 
     &__btn {
         @include button;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .subtotal {
+        height: 150px;
+        width: 100%;
+
+        &__btn {
+            margin: 0;
+        }
     }
 }
