@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { useStateValue } from './store/StateContext';
+import { ProductsContext } from './contexts/ProductsContext';
 
-const Product = ({ id, title, price, rating, imgUrl }) => {
-    const [{ basket }, dispatch] = useStateValue();
+const Product = ({
+    id,
+    title,
+    price,
+    rating,
+    imgUrl,
+    quantity,
+    page,
+    disabled,
+}) => {
+    const { addProductToBasket, removeProductFromBasket } = useContext(
+        ProductsContext
+    );
 
-    const addToBasket = () => {
-        dispatch({
-            type: 'ADD_TO_BASKET',
-            item: {
-                id,
-                title,
-                imgUrl,
-                price,
-                rating,
-            },
-        });
+    const handleClick = () => {
+        if (page === 'home')
+            addProductToBasket(id, title, price, rating, imgUrl, quantity);
+        else removeProductFromBasket(id);
     };
 
     return (
-        <div className='product'>
+        <div className={`product product__${page}`}>
             <div className='product__info'>
                 <p>{title}</p>
                 <p className='product__price'>
@@ -44,9 +48,11 @@ const Product = ({ id, title, price, rating, imgUrl }) => {
             </div>
 
             <img className='product__img' src={imgUrl} alt='product' />
-            <button onClick={addToBasket} className='product__btn'>
-                Add to Basket
-            </button>
+            {!disabled && (
+                <button onClick={handleClick} className='product__btn'>
+                    {page === 'home' ? 'Add to' : 'Remove from'} Basket
+                </button>
+            )}
         </div>
     );
 };
