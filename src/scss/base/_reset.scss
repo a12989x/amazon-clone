@@ -4,4 +4,16 @@
 
 body {
     background-color: $bg-color;
+
+    a {
+        text-decoration: none;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    li {
+        list-style: none;
+    }
 }
