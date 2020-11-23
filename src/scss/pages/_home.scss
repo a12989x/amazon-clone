@@ -1,11 +1,8 @@
 .home {
-    &__container {
-    }
-
     &__img {
         width: 100%;
         z-index: -1;
-        margin-bottom: -150px;
+        margin-bottom: -30vh;
         mask-image: linear-gradient(
             to bottom,
             rgba(0, 0, 0, 1),
@@ -17,5 +14,49 @@
         display: flex;
         z-index: 1;
         margin: 0 5px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .home {
+        &__img {
+            margin-bottom: -20vh;
+        }
+    }
+}
+
+@media screen and(max-width: 750px) {
+    .home {
+        &__row {
+            &:nth-child(3) {
+                display: grid;
+
+                .product {
+                    width: auto;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .home {
+        &__img {
+            margin-bottom: -10vh;
+        }
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .home {
+        &__row {
+            &:nth-child(2) {
+                display: grid;
+
+                .product {
+                    width: auto;
+                }
+            }
+        }
     }
 }
