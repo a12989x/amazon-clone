@@ -2,7 +2,7 @@
     height: 60px;
     display: flex;
     align-items: center;
-    background-color: #131921;
+    background-color: $blue-color;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -26,12 +26,16 @@
         width: 100%;
         background-color: $white-color;
         border: none;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
     }
 
     &__searchIcon {
         padding: 5px;
         height: 30px !important;
         background-color: $primary-color;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
 
     &__nav {
@@ -48,6 +52,7 @@
         span {
             &:nth-child(1) {
                 font-size: 12px;
+                text-transform: capitalize;
             }
 
             &:nth-child(2) {
@@ -65,5 +70,18 @@
 
     &__basketCount {
         margin: 0 10px;
+    }
+}
+
+@media screen and(max-width: 500px) {
+    .header {
+        &__logo {
+            width: 50px;
+            margin-top: 12px;
+        }
+
+        &__options {
+            transform: scale(0.9);
+        }
     }
 }
