@@ -1,5 +1,5 @@
 .payment {
-    background-color: white;
+    background-color: $bg-color;
 
     & > h1 {
         margin: 0;
@@ -33,6 +33,35 @@
         }
     }
 
-    &__details {
+    &__priceContainer {
+        button {
+            @include button;
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .payment {
+        &__title {
+            flex: 0.4;
+        }
+
+        &__address,
+        &__items,
+        &__details {
+            flex: 0.6;
+        }
+
+        &__items {
+            .product {
+                max-height: 80vh;
+                display: flex;
+                flex-direction: column;
+
+                &__btn {
+                    margin: 10px auto 0;
+                }
+            }
+        }
     }
 }
